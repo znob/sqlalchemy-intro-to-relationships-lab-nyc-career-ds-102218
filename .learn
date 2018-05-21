@@ -1,0 +1,11 @@
+tags:
+  - sql
+  - jupyter
+  - sqlalchemy
+  - query
+
+languages:
+  - sql
+  - python
+
+jupyter_notebook: true
