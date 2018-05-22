@@ -2,7 +2,8 @@ tags:
   - sql
   - jupyter
   - sqlalchemy
-  - query
+  - has many
+  - belongs to
 
 languages:
   - sql

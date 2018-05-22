@@ -2,41 +2,48 @@ import unittest, sqlite3, sys
 sys.path.insert(0, '..')
 from models import *
 from sqlalchemy import create_engine
+sys.path.insert(0, '..')
+from queries import *
 
-engine = create_engine('sqlite:///actors.db')
+engine = create_engine('sqlite:///../actors.db')
 
 Session = sessionmaker(bind=engine)
 session = Session()
 
 class TestHasManyBelongsTo(unittest.TestCase):
-    bale = Actor(name='Christian Bale')
-    paltrow = Actor(name='Gwyneth Paltrow')
-    bale.roles = [Role(character='Bruce Wayne'), Role(character='Patrick Bateman'), Role(character='Dr. Michael Burry')]
-    paltrow.roles = [Role(character='Pepper Potts')]
-    if bool(session.query(Actor).all()) == False:
-        session.add(bale)
-        session.add(paltrow)
-        session.commit()
+    tom = session.query(Actor).filter_by(name='Tom Hanks')[0]
+    gwyneth = session.query(Actor).filter_by(name='Gwyneth Paltrow')[0]
+    actor_3 = session.query(Actor).all()[2]
 
-    test_bale = session.query(Actor).filter_by(name='Christian Bale')[0]
-    test_paltrow = session.query(Actor).filter_by(name='Gwyneth Paltrow')[0]
+    def test_created_three_actors(self):
+        self.assertEqual(len(session.query(Actor).all()), 3)
 
-    def test_actor(self):
-        self.assertEqual(self.test_bale.name, 'Christian Bale')
-        self.assertEqual(self.test_paltrow.name, 'Gwyneth Paltrow')
+    def test_actors_have_two_roles(self):
+        self.assertEqual(len(self.tom.roles), 4)
+        self.assertEqual(len(self.gwyneth.roles), 2)
+        self.assertEqual(len(self.actor_3.roles), 2)
 
-    def test_actor_has_many_roles(self):
-        self.assertEqual(len(self.test_bale.roles), 3)
-        self.assertEqual(len(self.test_paltrow.roles), 1)
+    def test_created_six_roles(self):
+        self.assertEqual(len(session.query(Role).all()), 8)
 
-    def test_roles(self):
-        self.assertEqual(session.query(Role).all()[0].character, 'Bruce Wayne')
-        self.assertEqual(session.query(Role).all()[1].character, 'Patrick Bateman')
-        self.assertEqual(session.query(Role).all()[2].character, 'Dr. Michael Burry')
-        self.assertEqual(session.query(Role).all()[3].character, 'Pepper Potts')
+    def test_roles_belong_to_actor(self):
+        self.assertEqual(session.query(Role).filter_by(character='Forrest Gump')[0].actor, self.tom)
+        self.assertEqual(session.query(Role).filter_by(character='Woody')[0].actor, self.tom)
+        self.assertEqual(session.query(Role).filter_by(character='Jim Lovell')[0].actor, self.tom)
+        self.assertEqual(session.query(Role).filter_by(character='Robert Langdon')[0].actor, self.tom)
 
-    def test_role_belongs_to_actor(self):
-        self.assertEqual(self.test_bale, session.query(Role).all()[0].actor)
-        self.assertEqual(self.test_bale, session.query(Role).all()[1].actor)
-        self.assertEqual(self.test_bale, session.query(Role).all()[2].actor)
-        self.assertEqual(self.test_paltrow, session.query(Role).all()[3].actor)
+        self.assertEqual(session.query(Role).filter_by(character='Margot Tenenbaum')[0].actor, self.gwyneth)
+        self.assertEqual(session.query(Role).filter_by(character='Pepper Potts')[0].actor, self.gwyneth)
+
+
+    def test_return_gwyneth_paltrows_roles(self):
+        gwyneth_roles = return_gwyneth_paltrows_roles()
+        pepper_potts = session.query(Actor).filter_by(name='Gwyneth Paltrow')[0].roles[0].character
+        self.assertEqual(gwyneth_roles[0].character, pepper_potts)
+
+        margot = session.query(Actor).filter_by(name='Gwyneth Paltrow')[0].roles[1].character
+        self.assertEqual(gwyneth_roles[1].character, margot)
+
+    def test_return_tom_hanks_2nd_role(self):
+        tom_second_role = return_tom_hanks_2nd_role()
+        self.assertEqual(tom_second_role.character, 'Jim Lovell')

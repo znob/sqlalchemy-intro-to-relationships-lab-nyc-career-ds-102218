@@ -4,6 +4,8 @@ from sqlalchemy.orm import sessionmaker, relationship
 
 Base = declarative_base()
 
+
+# write the Role and Actor classes below
 class Role(Base):
     __tablename__ = "roles"
     id = Column(Integer, primary_key=True)
@@ -16,8 +18,6 @@ class Actor(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     roles = relationship('Role', order_by=Role.id, back_populates='actor')
-
-
 
 engine = create_engine('sqlite:///actors.db')
 Base.metadata.create_all(engine)
