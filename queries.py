@@ -8,7 +8,7 @@ session = Session()
 
 
 def return_gwyneth_paltrows_roles():
-    return session.query(Actor).filter_by(name='Gwyneth Paltrow')[0].roles
+    pass
 
 def return_tom_hanks_2nd_role():
-    return session.query(Actor).filter_by(name='Tom Hanks')[0].roles[1]
+    pass

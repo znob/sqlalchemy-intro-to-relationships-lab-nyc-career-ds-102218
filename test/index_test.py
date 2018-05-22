@@ -18,12 +18,12 @@ class TestHasManyBelongsTo(unittest.TestCase):
     def test_created_three_actors(self):
         self.assertEqual(len(session.query(Actor).all()), 3)
 
-    def test_actors_have_two_roles(self):
+    def test_actors_have_roles(self):
         self.assertEqual(len(self.tom.roles), 4)
         self.assertEqual(len(self.gwyneth.roles), 2)
         self.assertEqual(len(self.actor_3.roles), 2)
 
-    def test_created_six_roles(self):
+    def test_created_eight_roles(self):
         self.assertEqual(len(session.query(Role).all()), 8)
 
     def test_roles_belong_to_actor(self):

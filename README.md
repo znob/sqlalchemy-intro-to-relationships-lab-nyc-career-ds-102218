@@ -15,7 +15,7 @@ We first will create the database and the models and then populate the tables wi
 
 ### Create the schema
 
-We will write the code for our two model classes in `models.py`.
+We will write the code for our two model classes in `models.py`.  Alternatively, we could write both models in `models.py` then write Alembic migrations to establish the association between the two models.
 
 **`Role`**
 
@@ -42,13 +42,18 @@ Create the following actors:
 * Gwyneth Paltrow
 * an actor of your choice
 
-Associate the actors to the following roles:
-* Forrest Gump
-* Jim Lovell
-* Woody
-* Robert Langdon
-* Pepper Potts
-* Margot Tenenbaum
+Associate the actors to the following roles.  There should be eight roles in total.
+* Tom Hanks
+    * Forrest Gump
+    * Jim Lovell
+    * Woody
+    * Robert Langdon
+* Gwyneth Paltrow
+    * Pepper Potts
+    * Margot Tenenbaum
+* Your actor
+    * a role of your choice
+    * a role of your choice    
 
 Remember we can create instances of the Role class while making the association in the following manner: 
 
