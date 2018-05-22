@@ -14,8 +14,5 @@ tom.roles = [Role(character='Forrest Gump'), Role(character='Jim Lovell'), Role(
 paltrow.roles = [Role(character='Pepper Potts'), Role(character='Margot Tenenbaum')]
 bale.roles = [Role(character='Bruce Wayne'), Role(character='Dr. Michael Burry')]
 
-session.add(tom)
-session.add(paltrow)
-session.add(bale)
-
+session.add_all([tom, paltrow, bale])
 session.commit()
