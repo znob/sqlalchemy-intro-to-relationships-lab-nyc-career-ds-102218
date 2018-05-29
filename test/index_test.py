@@ -5,7 +5,8 @@ from sqlalchemy import create_engine
 sys.path.insert(0, '..')
 from queries import *
 
-exec(open("../models.py").read())
+if bool(session.query(Actor).all()) == False:
+    exec(open("../seed.py").read())
 
 class TestHasManyBelongsTo(unittest.TestCase):
     tom = session.query(Actor).filter_by(name='Tom Hanks')[0]
@@ -34,7 +35,7 @@ class TestHasManyBelongsTo(unittest.TestCase):
 
 
     def test_return_gwyneth_paltrows_roles(self):
-        gwyneth_roles = return_gwyneth_paltrows_roles(session)
+        gwyneth_roles = return_gwyneth_paltrows_roles()
         pepper_potts = session.query(Actor).filter_by(name='Gwyneth Paltrow')[0].roles[0].character
         self.assertEqual(gwyneth_roles[0].character, pepper_potts)
 
@@ -42,5 +43,5 @@ class TestHasManyBelongsTo(unittest.TestCase):
         self.assertEqual(gwyneth_roles[1].character, margot)
 
     def test_return_tom_hanks_2nd_role(self):
-        tom_second_role = return_tom_hanks_2nd_role(session)
+        tom_second_role = return_tom_hanks_2nd_role()
         self.assertEqual(tom_second_role.character, 'Jim Lovell')

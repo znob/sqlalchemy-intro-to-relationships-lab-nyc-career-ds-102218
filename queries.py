@@ -7,8 +7,8 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-def return_gwyneth_paltrows_roles(session):
+def return_gwyneth_paltrows_roles():
     return session.query(Actor).filter_by(name='Gwyneth Paltrow')[0].roles
 
-def return_tom_hanks_2nd_role(session):
+def return_tom_hanks_2nd_role():
     return session.query(Actor).filter_by(name='Tom Hanks')[0].roles[1]
