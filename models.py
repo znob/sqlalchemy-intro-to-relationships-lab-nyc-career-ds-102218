@@ -13,5 +13,5 @@ Base = declarative_base()
 
 
 
-engine = create_engine('sqlite:///actors.db')
+engine = create_engine('sqlite:///../actors.db')
 Base.metadata.create_all(engine)

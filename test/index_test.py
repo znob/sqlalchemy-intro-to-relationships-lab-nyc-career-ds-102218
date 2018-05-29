@@ -5,10 +5,8 @@ from sqlalchemy import create_engine
 sys.path.insert(0, '..')
 from queries import *
 
-engine = create_engine('sqlite:///../actors.db')
-
-Session = sessionmaker(bind=engine)
-session = Session()
+if bool(session.query(Actor).all()) == False:
+    exec(open("../seed.py").read())
 
 class TestHasManyBelongsTo(unittest.TestCase):
     tom = session.query(Actor).filter_by(name='Tom Hanks')[0]
@@ -18,12 +16,12 @@ class TestHasManyBelongsTo(unittest.TestCase):
     def test_created_three_actors(self):
         self.assertEqual(len(session.query(Actor).all()), 3)
 
-    def test_actors_have_roles(self):
+    def test_actors_have_two_roles(self):
         self.assertEqual(len(self.tom.roles), 4)
         self.assertEqual(len(self.gwyneth.roles), 2)
         self.assertEqual(len(self.actor_3.roles), 2)
 
-    def test_created_eight_roles(self):
+    def test_created_six_roles(self):
         self.assertEqual(len(session.query(Role).all()), 8)
 
     def test_roles_belong_to_actor(self):
