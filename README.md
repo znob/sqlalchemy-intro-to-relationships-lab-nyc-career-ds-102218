@@ -21,7 +21,7 @@ We will write the code for our two model classes in `models.py`.  Alternatively,
 
 Every `Role` will have an `id` serving as the primary key and a `character` column containing the name for every role.  
 
-To set up the "belongs to" relationship, we will need to add a column called `actor_id` that will use the `ForgeignKey()` function to tell SQLALchemy that this column can contain only values found in the `actors.id` column of the `actors` table.
+To set up the "belongs to" relationship, we will need to add a column called `actor_id` that will use the `ForeignKey()` function to tell SQLAlchemy that this column can contain only values found in the `actors.id` column of the `actors` table.
 
 We also need to use the `relationship` function to tell the ORM that our `Role` class should be associated with the `Actor` class.
 
@@ -55,7 +55,7 @@ Associate the actors to the following roles.  There should be eight roles in tot
     * a role of your choice
     * a role of your choice    
 
-Remember we can create instances of the Role class while making the association in the following manner: 
+Remember we can create instances of the Role class while making the association in the following manner:
 
 ```python
 woody_harrelson = Actor(name='Woody Harrelson')
