@@ -6,7 +6,7 @@ sys.path.insert(0, '..')
 from queries import *
 
 if bool(session.query(Actor).all()) == False:
-    exec(open("../seed.py").read())
+    exec(open("./seed.py").read())
 
 class TestHasManyBelongsTo(unittest.TestCase):
     tom = session.query(Actor).filter_by(name='Tom Hanks')[0]
