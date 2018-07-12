@@ -21,7 +21,7 @@ We will write the code for our two model classes in `models.py`.  Alternatively,
 
 Every `Role` will have an `id` serving as the primary key and a `character` column containing the name for every role.  
 
-To set up the "belongs to" relationship, we will need to add a column called `actor_id` that will use the `ForeignKey()` function to tell SQLAlchemy that this column can contain only values found in the `actors.id` column of the `actors` table.
+To set up the "belongs to" relationship, we will need to add a column called `actor_id` that will use the `ForgeignKey()` function to tell SQLALchemy that this column can contain only values found in the `actors.id` column of the `actors` table.
 
 We also need to use the `relationship` function to tell the ORM that our `Role` class should be associated with the `Actor` class.
 
@@ -35,7 +35,7 @@ We also will need to establish the "one to many" relationship by setting a `role
 
 ### Populate the database
 
-Once you have built the Actor and Role classes and their association, run the `models.py` file to create the database.  Now we can go to the `seeds.py` file to fill in the tables with some actors and roles!
+Once you have built the Actor and Role classes and their association, run `python models.py` in the terminal to execute the file to create the database.  Now we can go to the `seeds.py` file to fill in the tables with some actors and roles!
 
 Create the following actors:
 * Tom Hanks
@@ -51,16 +51,20 @@ Associate the actors to the following roles.  There should be eight roles in tot
 * Gwyneth Paltrow
     * Pepper Potts
     * Margot Tenenbaum
-* Your actor
+* An actor/actress of your choice
     * a role of your choice
     * a role of your choice    
 
-Remember we can create instances of the Role class while making the association in the following manner:
+Note that we can create instances of the Role class while making the association in the following manner: 
 
 ```python
 woody_harrelson = Actor(name='Woody Harrelson')
 woody_harrelson.roles = [Role(character='Detective Marty Hart'), Role(character='Mickey Knox')]
 ```
+
+Once our `seed.py` is filled with all of our actors, run `python seed.py` in the terminal to execute the file and persist these actors to the database.
+
+> **Note**: If our models or seed files are entered into the database incorrectly, we can delete the `actors.db` file and start over
 
 ### Query the related data
 
