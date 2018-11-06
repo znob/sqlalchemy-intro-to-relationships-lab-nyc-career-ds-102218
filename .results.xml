@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?><testsuite errors="1" failures="0" name="pytest" skips="0" tests="1" time="0.326"><testcase classname="" file="test/index_test.py" name="test.index_test" time="0"><error message="collection failure">test/index_test.py:8: in &lt;module&gt;
+    if bool(session.query(Actor).all()) == False:
+E   NameError: name &apos;Actor&apos; is not defined</error></testcase></testsuite>
